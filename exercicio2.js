@@ -54,3 +54,30 @@ const imagens = [
     }
   ];
 
+  let slideIndex = 0;
+  const slideQueryId = '#slide';
+  const slideNextButtonQueryId = '#proximo';
+  const slidePreviousButtonQueryId = '#anterior';
+  let slideImageEl = document.querySelector(slideQueryId);
+  let nextButtonEl = document.querySelector(slideNextButtonQueryId);
+  let previousButtonEl = document.querySelector(slidePreviousButtonQueryId);
+  
+  const setSlideImageAndDescription = (slideIndex) => {
+    let remainder = slideIndex % imagens.length;
+    slideData = imagens[remainder < 0 ? imagens.length + remainder : remainder];
+    slideImageEl.src = servidorDasImagens + '/' + slideData.arquivo;
+    slideImageEl.alt = slideData.descricao;
+  }
+
+  const getNextSlideImage = () => {
+    slideIndex++;
+    setSlideImageAndDescription(slideIndex);
+  }
+  
+  const getPreviousSlideImage = () => {
+    slideIndex--;
+    setSlideImageAndDescription(slideIndex);
+  }
+
+nextButtonEl.addEventListener('click', getNextSlideImage)
+previousButtonEl.addEventListener('click', getPreviousSlideImage)
